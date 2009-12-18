@@ -9,6 +9,12 @@ describe NumberRecognizer do
       @nc.type.should == 'Dutch mobile'
     end
 
+    it 'should recognize 0612345678 as dutch mobile' do
+      @nc = NumberRecognizer.new('0612345678')
+      @nc.should be_valid
+      @nc.type.should == 'Dutch mobile'
+    end
+
     it 'should recognize 0031201234567 as dutch landline' do
       @nc = NumberRecognizer.new('0031201234567')
       @nc.should be_valid
