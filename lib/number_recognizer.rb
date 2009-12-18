@@ -7,7 +7,9 @@ class NumberRecognizer
     'Dutch landline' => [/31[12345789]/, 8],
     'Belgian mobile' => [324, 8],
     'Suriname' => [597,7],
-    'Dutch Antilles' => [599,7]
+    'Dutch Antilles' => [599,7],
+    'England' => [44,10]
+
   }
   attr_accessor :number
 
