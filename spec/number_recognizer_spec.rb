@@ -50,5 +50,11 @@ describe NumberRecognizer do
       @nc.should be_valid
       @nc.type.should == 'England'
     end
+
+    it 'should recognize 0044123456789 as an English number' do
+      @nc = NumberRecognizer.new('0044123456789')
+      @nc.should be_valid
+      @nc.type.should == 'England'
+    end
   end
 end
