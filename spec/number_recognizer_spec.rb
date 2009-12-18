@@ -38,5 +38,11 @@ describe NumberRecognizer do
       @nc.should be_valid
       @nc.type.should == 'Dutch Antilles'
     end
+
+    it 'should be false when a nil number is provided' do
+      @nc = NumberRecognizer.new(nil)
+      @nc.should_not be_valid
+      @nc.type.should be_nil
+    end
   end
 end
