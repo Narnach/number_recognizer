@@ -14,10 +14,7 @@ class NumberRecognizer
   end
 
   def valid?
-    if match = KNOWN_FORMATS.find {|name, pattern| number =~ /^0{0,2}#{pattern.first}\d{#{pattern.last},#{pattern.last}}$/}
-      match
-    else
-      false
-    end
+    return false unless match = KNOWN_FORMATS.find {|name, pattern| number =~ /^0{0,2}#{pattern.first}\d{#{pattern.last},#{pattern.last}}$/}
+    match
   end
 end
