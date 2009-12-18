@@ -9,7 +9,6 @@ class NumberRecognizer
     'Suriname' => /597\d{7,7}/,
     'Dutch Antilles' => /599\d{7,7}/,
     'England' => /44\d{9,10}/
-
   }
   attr_accessor :number
 
