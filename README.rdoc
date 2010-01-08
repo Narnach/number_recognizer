@@ -1,10 +1,12 @@
 = NumberRecognizer
 
-Number Recognizer (NR) can recognize a couple of phone number formats and can suggest corrections for them.
-
-I use it to recognize and correct numbers you would expect in the Netherlands and Belgium: Dutch landlines and mobile numbers, Belgian mobile numbers and the numbers of nearby countries.
+NumberRecognizer is a rails plugin to recognize Dutch and Belgian mobile phone numbers. It can make guesses about corrections to wrong numbers, too.
 
 It does not aim for worldwide coverage and correction, as that is not the problem I'm trying to solve.
+
+== Installation
+
+  script/plugin install git://github.com/Narnach/number_recognizer.git
 
 == Disclaimer
 
