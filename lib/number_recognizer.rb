@@ -34,7 +34,7 @@ class NumberRecognizer
   def correct
     old_number = number
     case number
-    when /0[96]6*(\d{8})/
+    when /^0[96]6*(\d{8})$/
       self.number = "00316#{$1}"
     else
       return false
