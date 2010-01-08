@@ -16,6 +16,10 @@ class NumberRecognizer
     @number = number
   end
 
+  def valid_or_correct?
+    valid? or correct
+  end
+
   # Set type, country and local_number
   def valid?
     number = self.number.to_s
@@ -37,7 +41,6 @@ class NumberRecognizer
     end
     self.old_number = old_number
     valid?
-    true
   end
 
   def normalized_number
