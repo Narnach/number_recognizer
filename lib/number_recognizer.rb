@@ -16,8 +16,9 @@ class NumberRecognizer
     @number = number
   end
 
-  def valid_or_correct?
-    valid? or correct
+  def valid_or_correct_mobile?
+    return false unless valid? or correct
+    ['Dutch mobile', 'Belgian mobile'].include? type
   end
 
   # Set type, country and local_number
