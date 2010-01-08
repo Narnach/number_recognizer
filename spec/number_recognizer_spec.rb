@@ -114,6 +114,21 @@ describe NumberRecognizer do
       @nc.local_number.should == '612345678'
     end
 
+    it 'should correct 0412345678 to 32412345678' do
+      @nc = NumberRecognizer.new('0412345678')
+      @nc.should_not be_valid
+
+      @nc.correct.should be_true
+      @nc.number.should == '32412345678'
+      @nc.old_number.should == '0412345678'
+
+      @nc.type.should == 'Belgian mobile'
+      @nc.country.should == '32'
+      @nc.local_number.should == '412345678'
+    end
+
+
+
     describe 'valid or correct mobile' do
       it 'should correct 0612345678 to 0031612345678' do
         @nc = NumberRecognizer.new('0612345678')

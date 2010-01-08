@@ -37,6 +37,8 @@ class NumberRecognizer
     case number
     when /^0[96]6*(\d{8})$/
       self.number = "00316#{$1}"
+    when /^04(\d{8})$/
+      self.number = "324#{$1}"
     else
       return false
     end
