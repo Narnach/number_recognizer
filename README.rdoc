@@ -1,0 +1,14 @@
+= NumberRecognizer
+
+Number Recognizer (NR) can recognize a couple of phone number formats and can suggest corrections for them.
+
+I use it to recognize and correct numbers you would expect in the Netherlands and Belgium: Dutch landlines and mobile numbers, Belgian mobile numbers and the numbers of nearby countries.
+
+It does not aim for worldwide coverage and correction, as that is not the problem I'm trying to solve.
+
+== Disclaimer
+
+It scratches my own itch and does not aim to solve everyone's problems.
+If it works for you, great! If it does not; fork it, patch it and send me a pull request.
+
+Written by Wes 'Narnach' Oldenbeuving in 2009. Licensed under the MIT license.
