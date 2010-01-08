@@ -80,7 +80,7 @@ describe NumberRecognizer do
       @nc.should_not be_valid
 
       @nc.correct.should be_true
-      @nc.number.should == '0031612345678'
+      @nc.number.should == '31612345678'
       @nc.old_number.should == '06612345678'
 
       @nc.type.should == 'Dutch mobile'
@@ -93,7 +93,7 @@ describe NumberRecognizer do
       @nc.should_not be_valid
 
       @nc.correct.should be_true
-      @nc.number.should == '0031612345678'
+      @nc.number.should == '31612345678'
       @nc.old_number.should == '09612345678'
 
       @nc.type.should == 'Dutch mobile'
@@ -106,7 +106,7 @@ describe NumberRecognizer do
       @nc.should_not be_valid
 
       @nc.correct.should be_true
-      @nc.number.should == '0031612345678'
+      @nc.number.should == '31612345678'
       @nc.old_number.should == '0612345678'
 
       @nc.type.should == 'Dutch mobile'
