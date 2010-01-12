@@ -8,6 +8,10 @@ It does not aim for worldwide coverage and correction, as that is not the proble
 
   script/plugin install git://github.com/Narnach/number_recognizer.git
 
+== Bug tracking / feature requests
+
+I use Lighthouse for this: https://narnach.lighthouseapp.com/projects/44386-number-recognizer
+
 == Disclaimer
 
 It scratches my own itch and does not aim to solve everyone's problems.
