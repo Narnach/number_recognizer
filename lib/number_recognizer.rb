@@ -9,16 +9,23 @@ class NumberRecognizer
     'Belgian mobile' => /(32)(4\d{8,8})/,
     'Suriname' => /(597)(\d{7,7})/,
     'Dutch Antilles' => /(599)(\d{7,7})/,
-    'England' => /(44)(\d{9,10})/
+    'England' => /(44)(\d{9,10})/,
+    'Australia mobile' => /(61)(4\d{8})/,
+    'Austraia' => /(61)([1-35-9]\d{8})/,
   }
 
   def initialize(number)
     @number = number
   end
 
+  def mobile?
+    self.valid? if self.type.nil?
+    self.type.to_s =~ /mobile/
+  end
+
   def valid_or_correct_mobile?
     return false unless valid? or correct
-    ['Dutch mobile', 'Belgian mobile'].include? type
+    mobile?
   end
 
   # Set type, country and local_number
