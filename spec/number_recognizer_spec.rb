@@ -10,7 +10,7 @@ describe NumberRecognizer do
     @nc.normalized_number.should == '31612345678'
   end
 
-  describe 'recognition' do
+  describe 'valid?' do
     it 'should be false when a nil number is provided' do
       @nc = NumberRecognizer.new(nil)
       @nc.should_not be_valid
@@ -72,7 +72,7 @@ describe NumberRecognizer do
       @nc.local_number.should == '123456789'
       @nc.type.should == 'England'
     end
-    
+
     it 'should recognize 0061451124205 as an Australian number' do
       @nc = NumberRecognizer.new('0061451124205')
       @nc.should be_valid
@@ -82,7 +82,7 @@ describe NumberRecognizer do
     end
   end
 
-  describe "correction" do
+  describe "correct" do
     it 'should correct 06612345678 to 0031612345678' do
       @nc = NumberRecognizer.new('06612345678')
       @nc.should_not be_valid
@@ -134,33 +134,34 @@ describe NumberRecognizer do
       @nc.country.should == '32'
       @nc.local_number.should == '412345678'
     end
+  end
 
-    describe 'valid or correct mobile' do
-      it 'should correct 0612345678 to 0031612345678' do
-        @nc = NumberRecognizer.new('0612345678')
-        @nc.should be_valid_or_correct_mobile
+  describe 'valid or correct mobile' do
+    it 'should correct 0612345678 to 0031612345678' do
+      @nc = NumberRecognizer.new('0612345678')
+      @nc.should be_valid_or_correct_mobile
 
-        @nc.type.should == 'Dutch mobile'
-        @nc.country.should == '31'
-        @nc.local_number.should == '612345678'
-      end
+      @nc.type.should == 'Dutch mobile'
+      @nc.country.should == '31'
+      @nc.local_number.should == '612345678'
+    end
 
-      it 'should accept 0032412345678' do
-        @nc = NumberRecognizer.new('0032412345678')
-        @nc.should be_valid_or_correct_mobile
+    it 'should accept 0032412345678' do
+      @nc = NumberRecognizer.new('0032412345678')
+      @nc.should be_valid_or_correct_mobile
 
-        @nc.type.should == 'Belgian mobile'
-        @nc.country.should == '32'
-        @nc.local_number.should == '412345678'
-      end
+      @nc.type.should == 'Belgian mobile'
+      @nc.country.should == '32'
+      @nc.local_number.should == '412345678'
     end
   end
-  
+
   describe 'mobile?' do
     it 'should recognize 31612345678 as a mobile number' do
       @nc = NumberRecognizer.new('0031612345678')
       @nc.should be_mobile
     end
+
     it 'should recognize 31202345678 as not mobile number' do
       @nc = NumberRecognizer.new('31202345678')
       @nc.should_not be_mobile
