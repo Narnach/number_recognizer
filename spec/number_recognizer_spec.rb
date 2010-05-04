@@ -134,6 +134,19 @@ describe NumberRecognizer do
       @nc.country.should == '32'
       @nc.local_number.should == '412345678'
     end
+
+    it 'should correct 0412345678 to 61412345678 given a country-bias for 61' do
+      @nc = NumberRecognizer.new('0412345678')
+      @nc.should_not be_valid
+
+      @nc.correct(61).should be_true
+      @nc.number.should == '61412345678'
+      @nc.old_number.should == '0412345678'
+
+      @nc.type.should == 'Australia mobile'
+      @nc.country.should == '61'
+      @nc.local_number.should == '412345678'
+    end
   end
 
   describe 'valid or correct mobile' do
@@ -152,6 +165,15 @@ describe NumberRecognizer do
 
       @nc.type.should == 'Belgian mobile'
       @nc.country.should == '32'
+      @nc.local_number.should == '412345678'
+    end
+
+    it 'should accept 0412345678 as Australia Mobile given a country-bias for 61' do
+      @nc = NumberRecognizer.new('0412345678')
+      @nc.valid_or_correct_mobile?(61).should be_true
+
+      @nc.type.should == 'Australia mobile'
+      @nc.country.should == '61'
       @nc.local_number.should == '412345678'
     end
   end

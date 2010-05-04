@@ -14,6 +14,7 @@ class NumberRecognizer
     'Austraia' => /(61)([1-35-9]\d{8})/,
   }
 
+
   def initialize(number)
     @number = number
   end
@@ -23,8 +24,8 @@ class NumberRecognizer
     self.type.to_s =~ /mobile/
   end
 
-  def valid_or_correct_mobile?
-    return false unless valid? or correct
+  def valid_or_correct_mobile?(country_bias=nil)
+    return false unless valid? or correct(country_bias)
     mobile?
   end
 
@@ -39,13 +40,14 @@ class NumberRecognizer
     true
   end
 
-  def correct
+  def correct(country_bias=nil)
     old_number = number
     case number
     when /^0[96]6*(\d{8})$/
       self.number = "316#{$1}"
     when /^04(\d{8})$/
-      self.number = "324#{$1}"
+      prefix = pick_biased_country([32,61], country_bias)
+      self.number = "#{prefix}4#{$1}"
     else
       return false
     end
@@ -55,5 +57,13 @@ class NumberRecognizer
 
   def normalized_number
     "#{country}#{local_number}"
+  end
+
+  private
+
+  def pick_biased_country(allowed_countries, bias=nil)
+    country_bias = [bias].flatten.compact
+    whitelisted_bias = country_bias & allowed_countries
+    return whitelisted_bias.first || allowed_countries.first
   end
 end
