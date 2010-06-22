@@ -131,6 +131,19 @@ describe NumberRecognizer do
       @nc.local_number.should == '612345678'
     end
 
+    it 'should correct 07123456789 to 00447123456789' do
+      @nc = NumberRecognizer.new('07123456789')
+      @nc.should_not be_valid
+
+      @nc.correct.should be_true
+      @nc.number.should == '447123456789'
+      @nc.old_number.should == '07123456789'
+
+      @nc.type.should == 'England mobile'
+      @nc.country.should == '44'
+      @nc.local_number.should == '7123456789'
+    end
+
     it 'should correct 0412345678 to 32412345678' do
       @nc = NumberRecognizer.new('0412345678')
       @nc.should_not be_valid

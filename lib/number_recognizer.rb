@@ -44,6 +44,8 @@ class NumberRecognizer
   def correct(country_bias=nil)
     old_number = number
     case number
+    when /^07(\d{8,9})$/
+      self.number = "447#{$1}"
     when /^0[96]6*(\d{8})$/
       self.number = "316#{$1}"
     when /^04(\d{8})$/
