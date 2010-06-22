@@ -9,7 +9,8 @@ class NumberRecognizer
     'Belgian mobile' => /(32)(4\d{8,8})/,
     'Suriname' => /(597)(\d{7,7})/,
     'Dutch Antilles' => /(599)(\d{7,7})/,
-    'England' => /(44)(\d{9,10})/,
+    'England' => /(44)([0-68-9]\d{8,9})/,
+    'England mobile' => /(44)(7\d{8,9})/,
     'Australia mobile' => /(61)(4\d{8})/,
     'Austraia' => /(61)([1-35-9]\d{8})/,
   }

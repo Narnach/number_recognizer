@@ -73,6 +73,15 @@ describe NumberRecognizer do
       @nc.type.should == 'England'
     end
 
+    it 'should recognize 0044712345678 as an English mobile number' do
+      @nc = NumberRecognizer.new('0044712345678')
+      @nc.should be_valid
+      @nc.should be_valid_or_correct_mobile
+      @nc.country.should == '44'
+      @nc.local_number.should == '712345678'
+      @nc.type.should == 'England mobile'
+    end
+
     it 'should recognize 0061451124205 as an Australian number' do
       @nc = NumberRecognizer.new('0061451124205')
       @nc.should be_valid
