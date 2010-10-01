@@ -12,7 +12,9 @@ class NumberRecognizer
     'England' => /(44)([0-68-9]\d{8,9})/,
     'England mobile' => /(44)(7\d{8,9})/,
     'Australia mobile' => /(61)(4\d{8})/,
-    'Austraia' => /(61)([1-35-9]\d{8})/,
+    'Australia' => /(61)([1-35-9]\d{8})/,
+    'Australia' => /(61)([1-35-9]\d{8})/,
+    'Portugal mobile' => /(351)(9[136]\d{7})/
   }
 
 
@@ -44,6 +46,8 @@ class NumberRecognizer
   def correct(country_bias=nil)
     old_number = number
     case number
+    when /^09([136]\d{7})$/ #this must come before NL !
+      self.number = "3519#{$1}"
     when /^07(\d{8,9})$/
       self.number = "447#{$1}"
     when /^0[96]6*(\d{8})$/

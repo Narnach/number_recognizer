@@ -198,6 +198,16 @@ describe NumberRecognizer do
       @nc.country.should == '61'
       @nc.local_number.should == '412345678'
     end
+
+    it 'should correct 0913773785 to 00351913773785' do
+      @nc = NumberRecognizer.new('0913773785')
+      @nc.should be_valid_or_correct_mobile
+
+      @nc.type.should == 'Portugal mobile'
+      @nc.country.should == '351'
+      @nc.local_number.should == '913773785'
+    end
+
   end
 
   describe 'mobile?' do
