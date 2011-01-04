@@ -144,6 +144,19 @@ describe NumberRecognizer do
       @nc.local_number.should == '7123456789'
     end
 
+    it 'should correct 7123456789 to 00447123456789' do
+      @nc = NumberRecognizer.new('7123456789')
+      @nc.should_not be_valid
+
+      @nc.correct.should be_true
+      @nc.number.should == '447123456789'
+      @nc.old_number.should == '7123456789'
+
+      @nc.type.should == 'England mobile'
+      @nc.country.should == '44'
+      @nc.local_number.should == '7123456789'
+    end
+
     it 'should correct 0412345678 to 32412345678' do
       @nc = NumberRecognizer.new('0412345678')
       @nc.should_not be_valid
@@ -181,6 +194,15 @@ describe NumberRecognizer do
       @nc.local_number.should == '612345678'
     end
 
+    it 'should correct 612345678 to 0031612345678' do
+      @nc = NumberRecognizer.new('612345678')
+      @nc.should be_valid_or_correct_mobile
+
+      @nc.type.should == 'Dutch mobile'
+      @nc.country.should == '31'
+      @nc.local_number.should == '612345678'
+    end
+
     it 'should accept 0032412345678' do
       @nc = NumberRecognizer.new('0032412345678')
       @nc.should be_valid_or_correct_mobile
@@ -199,8 +221,26 @@ describe NumberRecognizer do
       @nc.local_number.should == '412345678'
     end
 
+    it 'should accept 412345678 as Australia Mobile given a country-bias for 61' do
+      @nc = NumberRecognizer.new('412345678')
+      @nc.valid_or_correct_mobile?(61).should be_true
+
+      @nc.type.should == 'Australia mobile'
+      @nc.country.should == '61'
+      @nc.local_number.should == '412345678'
+    end
+
     it 'should correct 0913773785 to 00351913773785' do
       @nc = NumberRecognizer.new('0913773785')
+      @nc.should be_valid_or_correct_mobile
+
+      @nc.type.should == 'Portugal mobile'
+      @nc.country.should == '351'
+      @nc.local_number.should == '913773785'
+    end
+
+    it 'should correct 913773785 to 00351913773785' do
+      @nc = NumberRecognizer.new('913773785')
       @nc.should be_valid_or_correct_mobile
 
       @nc.type.should == 'Portugal mobile'
