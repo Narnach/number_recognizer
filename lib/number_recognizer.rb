@@ -50,7 +50,7 @@ class NumberRecognizer
       self.number = "3519#{$1}"
     when /^0?7(\d{8,9})$/
       self.number = "447#{$1}"
-    when /^0?[96]6*(\d{8})$/
+    when /^0?6*(\d{8})$/
       self.number = "316#{$1}"
     when /^0?4(\d{8})$/
       prefix = pick_biased_country([32,61], country_bias)

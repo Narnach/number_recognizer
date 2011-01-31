@@ -105,19 +105,6 @@ describe NumberRecognizer do
       @nc.local_number.should == '612345678'
     end
 
-    it 'should correct 09612345678 to 0031612345678' do
-      @nc = NumberRecognizer.new('09612345678')
-      @nc.should_not be_valid
-
-      @nc.correct.should be_true
-      @nc.number.should == '31612345678'
-      @nc.old_number.should == '09612345678'
-
-      @nc.type.should == 'Dutch mobile'
-      @nc.country.should == '31'
-      @nc.local_number.should == '612345678'
-    end
-
     it 'should correct 0612345678 to 0031612345678' do
       @nc = NumberRecognizer.new('0612345678')
       @nc.should_not be_valid
