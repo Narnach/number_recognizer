@@ -17,7 +17,6 @@ class NumberRecognizer
     'Portugal mobile' => /(351)(9[136]\d{7})/
   }
 
-
   def initialize(number)
     @number = number
   end
