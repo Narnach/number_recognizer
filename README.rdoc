@@ -1,8 +1,26 @@
 = NumberRecognizer
 
-NumberRecognizer is a rails plugin to recognize Dutch and Belgian mobile phone numbers. It can make guesses about corrections to wrong numbers, too.
+NumberRecognizer is a rails plugin to recognize mobile phone numbers. It can make educated guesses to correct local numbers into numbers in international format.
+
+== Examples
+
+  @nc = NumberRecognizer.new("0612345678")
+  @nc.valid_or_correct_mobile?  # => true
+  @nc.country_name              # => "Netherlands"
+  @nc.country                   # => "31"
+  @nc.local_number              # => "612345678"
+  @nc.normalized_number         # => "31612345678"
+
+== Supported countries
 
 It does not aim for worldwide coverage and correction, as that is not the problem I'm trying to solve.
+If want to add a country, feel free to send me a pull request or create a feature request.
+
+* Netherlands
+* Belgium
+* England
+* Portugal
+* Australia
 
 == Installation
 
@@ -10,7 +28,7 @@ It does not aim for worldwide coverage and correction, as that is not the proble
 
 == Bug tracking / feature requests
 
-I use Lighthouse for this: https://narnach.lighthouseapp.com/projects/44386-number-recognizer
+I use Github issues for this: https://github.com/Narnach/number_recognizer/issues
 
 == Disclaimer
 
