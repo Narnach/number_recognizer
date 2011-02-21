@@ -1,48 +1,54 @@
-class NumberRecognizer
-  attr_accessor :number, :old_number, :type
-  attr_accessor :country, :local_number
+require 'number_recognizer/format_dsl'
 
-  # Name -> pattern
-  KNOWN_FORMATS = {
-    'Dutch mobile' => /(31)(6\d{8,8})/,
-    'Dutch landline' => /(31)([12345789]\d{8,8})/,
-    'Belgian mobile' => /(32)(4\d{8,8})/,
-    'Suriname' => /(597)(\d{7,7})/,
-    'Dutch Antilles' => /(599)(\d{7,7})/,
-    'England' => /(44)([0-68-9]\d{8,9})/,
-    'England mobile' => /(44)(7\d{8,9})/,
-    'Australia mobile' => /(61)(4\d{8})/,
-    'Australia' => /(61)([1-35-9]\d{8})/,
-    'Australia' => /(61)([1-35-9]\d{8})/,
-    'Portugal mobile' => /(351)(9[136]\d{7})/
-  }
+class NumberRecognizer
+  include FormatDsl
+
+  # Input
+  attr_accessor :number, :old_number, :country_name, :country, :local_number
+
+  add_format :country => "Netherlands", :mobile=>true, :format => /(31)(6\d{8,8})/
+  add_format :country => "Belgium",     :mobile=>true, :format => /(32)(4\d{8,8})/
+  add_format :country => "England",     :mobile=>true, :format => /(44)(7\d{8,9})/
+  add_format :country => "Australia",   :mobile=>true, :format => /(61)(4\d{8})/
+  add_format :country => "Portugal",    :mobile=>true, :format => /(351)(9[136]\d{7})/
+
+  add_format :country => "Netherlands",     :mobile=>false, :format => /(31)([123457890]\d{8,8})/
+  add_format :country => "Suriname",        :mobile=>false, :format => /(597)(\d{7,7})/
+  add_format :country => "Dutch Antilles",  :mobile=>false, :format => /(599)(\d{7,7})/
+  add_format :country => "England",         :mobile=>false, :format => /(44)([0-68-9]\d{8,9})/
+  add_format :country => "Australia",       :mobile=>false, :format => /(61)([1-35-9]\d{8})/
 
   def initialize(number)
     @number = number
+    @parsed = false
+    @corrected = false
+
+    @valid = nil
+    @mobile = nil
   end
 
   def mobile?
-    self.valid? if self.type.nil?
-    self.type.to_s =~ /mobile/
+    parse unless @parsed
+    @mobile
+  end
+
+  def valid?
+    parse unless @parsed
+    @valid
   end
 
   def valid_or_correct_mobile?(country_bias=nil)
-    return false unless valid? or correct(country_bias)
-    mobile?
+    correct(country_bias)
+    valid? && mobile?
   end
 
-  # Set type, country and local_number
-  def valid?
-    number = self.number.to_s
-    self.type, pattern = KNOWN_FORMATS.find {|name, pattern| number.match /^0{0,2}#{pattern}$/}
-    return false unless pattern
-    match = number.match(pattern)
-    self.country = match[1]
-    self.local_number = match[2]
-    true
+  def normalized_number
+    parse unless @parsed
+    "#{country}#{local_number}"
   end
 
   def correct(country_bias=nil)
+    @corrected = false
     old_number = number
     case number
     when /^0?9([136]\d{7})$/ #this must come before NL !
@@ -55,17 +61,35 @@ class NumberRecognizer
       prefix = pick_biased_country([32,61], country_bias)
       self.number = "#{prefix}4#{$1}"
     else
-      return false
+      # No correction, so no need re-parse
+      @corrected = true
+      return valid?
     end
     self.old_number = old_number
+    @parsed = false
+    @corrected = true
     valid?
   end
 
-  def normalized_number
-    "#{country}#{local_number}"
-  end
-
   private
+
+  def parse
+    @parsed = true
+    @valid = false
+    number = self.number.to_s
+    format = self.class.formats.find {|format| number.match(format[:format])}
+    unless format
+      return
+    end
+    @mobile = format[:mobile]
+    self.country_name = format[:country]
+
+    match = number.match(format[:format])
+    self.country = match[1]
+    self.local_number = match[2]
+    @valid = true
+    nil
+  end
 
   def pick_biased_country(allowed_countries, bias=nil)
     country_bias = [bias].flatten.compact
