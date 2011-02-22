@@ -71,12 +71,17 @@ class NumberRecognizer
     valid?
   end
 
+  def type
+    return nil unless valid?
+    "#{country_name} #{mobile? ? "mobile" : "landline"}"
+  end
+
   private
 
   def parse
     @parsed = true
     @valid = false
-    number = self.number.to_s
+    number = self.number.to_s.sub(/^0+/,'')
     format = self.class.formats.find {|format| number.match(format[:format])}
     unless format
       return

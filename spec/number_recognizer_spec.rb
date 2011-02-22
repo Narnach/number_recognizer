@@ -211,6 +211,10 @@ describe NumberRecognizer do
       @nc.local_number.should == '913773785'
     end
 
+    it "should return false for a landline number" do
+      @nc = NumberRecognizer.new('31201234567')
+      @nc.should_not be_valid_or_correct_mobile
+    end
   end
 
   describe 'mobile?' do
@@ -219,9 +223,18 @@ describe NumberRecognizer do
       @nc.should be_mobile
     end
 
-    it 'should recognize 31202345678 as not mobile number' do
-      @nc = NumberRecognizer.new('31202345678')
+    it 'should recognize 31201234567 as not mobile number' do
+      @nc = NumberRecognizer.new('31201234567')
       @nc.should_not be_mobile
+    end
+  end
+
+  describe "type" do
+    it "should compose country and mobile/landline status" do
+      @nc = NumberRecognizer.new('31612345678')
+      @nc.type.should == "Netherlands mobile"
+      @nc = NumberRecognizer.new('31201234567')
+      @nc.type.should == "Netherlands landline"
     end
   end
 end
