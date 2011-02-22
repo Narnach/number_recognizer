@@ -215,6 +215,11 @@ describe NumberRecognizer do
       @nc = NumberRecognizer.new('31201234567')
       @nc.should_not be_valid_or_correct_mobile
     end
+
+    it "should return false for a corrupted mobile number" do
+      @nc = NumberRecognizer.new('061234567')
+      @nc.should_not be_valid_or_correct_mobile
+    end
   end
 
   describe 'mobile?' do
