@@ -6,13 +6,13 @@ class NumberRecognizer
   # Input
   attr_accessor :number, :old_number, :country_name, :country, :local_number
 
-  add_format :country => "Netherlands", :mobile=>true, :format => /(31)(6\d{8,8})/
-  add_format :country => "Belgium",     :mobile=>true, :format => /(32)(4\d{8,8})/
+  add_format :country => "Netherlands", :mobile=>true, :format => /(31)(6\d{8})/
+  add_format :country => "Belgium",     :mobile=>true, :format => /(32)(4\d{8})/
   add_format :country => "England",     :mobile=>true, :format => /(44)(7\d{8,9})/
   add_format :country => "Australia",   :mobile=>true, :format => /(61)(4\d{8})/
   add_format :country => "Portugal",    :mobile=>true, :format => /(351)(9\d{8})/
 
-  add_format :country => "Netherlands",     :mobile=>false, :format => /(31)([123457890]\d{8,8})/
+  add_format :country => "Netherlands",     :mobile=>false, :format => /(31)([123457890]\d{8})/
   add_format :country => "Suriname",        :mobile=>false, :format => /(597)(\d{7,7})/
   add_format :country => "Dutch Antilles",  :mobile=>false, :format => /(599)(\d{7,7})/
   add_format :country => "England",         :mobile=>false, :format => /(44)([0-68-9]\d{8,9})/
