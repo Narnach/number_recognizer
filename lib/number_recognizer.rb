@@ -10,7 +10,7 @@ class NumberRecognizer
   add_format :country => "Belgium",     :mobile=>true, :format => /(32)(4\d{8,8})/
   add_format :country => "England",     :mobile=>true, :format => /(44)(7\d{8,9})/
   add_format :country => "Australia",   :mobile=>true, :format => /(61)(4\d{8})/
-  add_format :country => "Portugal",    :mobile=>true, :format => /(351)(9[136]\d{7})/
+  add_format :country => "Portugal",    :mobile=>true, :format => /(351)(9\d{8})/
 
   add_format :country => "Netherlands",     :mobile=>false, :format => /(31)([123457890]\d{8,8})/
   add_format :country => "Suriname",        :mobile=>false, :format => /(597)(\d{7,7})/

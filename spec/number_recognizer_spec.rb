@@ -89,6 +89,14 @@ describe NumberRecognizer do
       @nc.local_number.should == '451124205'
       @nc.country_name.should == 'Australia'
     end
+
+    it 'should recognize 00351927123456' do
+      @nc = NumberRecognizer.new('00351927123456')
+      @nc.should be_valid
+      @nc.country.should == '351'
+      @nc.local_number.should == '927123456'
+      @nc.country_name.should == 'Portugal'
+    end
   end
 
   describe "correct" do
