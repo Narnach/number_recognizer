@@ -97,6 +97,15 @@ describe NumberRecognizer do
       @nc.local_number.should == '927123456'
       @nc.country_name.should == 'Portugal'
     end
+
+    it 'should recognize 0034612345678' do
+      @nc = NumberRecognizer.new('0034612345678')
+      @nc.should be_valid
+      @nc.country.should == '34'
+      @nc.should be_mobile
+      @nc.local_number.should == '612345678'
+      @nc.country_name.should == 'Spain'
+    end
   end
 
   describe "correct" do
@@ -152,6 +161,24 @@ describe NumberRecognizer do
       @nc.correct(61).should be_true
       @nc.number.should == '61412345678'
       @nc.old_number.should == '0412345678'
+    end
+
+    it 'should correct 0612345678 to 34612345678 given a country-bias for 34' do
+      @nc = NumberRecognizer.new('0612345678')
+      @nc.should_not be_valid
+
+      @nc.correct(34).should be_true
+      @nc.number.should == '34612345678'
+      @nc.old_number.should == '0612345678'
+    end
+
+    it 'should correct 0712345678 to 34712345678 given a country-bias for 34' do
+      @nc = NumberRecognizer.new('0712345678')
+      @nc.should_not be_valid
+
+      @nc.correct(34).should be_true
+      @nc.number.should == '34712345678'
+      @nc.old_number.should == '0712345678'
     end
   end
 

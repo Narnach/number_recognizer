@@ -11,6 +11,7 @@ class NumberRecognizer
   add_format :country => "England",     :mobile=>true, :format => /(44)(7\d{8,9})/
   add_format :country => "Australia",   :mobile=>true, :format => /(61)(4\d{8})/
   add_format :country => "Portugal",    :mobile=>true, :format => /(351)(9\d{8})/
+  add_format :country => "Spain",       :mobile=>true, :format => /(34)([67]\d{8})/
 
   add_format :country => "Netherlands",     :mobile=>false, :format => /(31)([123457890]\d{8})/
   add_format :country => "Suriname",        :mobile=>false, :format => /(597)(\d{7,7})/
@@ -54,9 +55,11 @@ class NumberRecognizer
     when /^0?9([136]\d{7})$/ #this must come before NL !
       self.number = "3519#{$1}"
     when /^0?7(\d{8,9})$/
-      self.number = "447#{$1}"
+      prefix = pick_biased_country([44,34], country_bias)
+      self.number = "#{prefix}7#{$1}"
     when /^0?6+(\d{8})$/
-      self.number = "316#{$1}"
+      prefix = pick_biased_country([31,34], country_bias)
+      self.number = "#{prefix}6#{$1}"
     when /^0?4(\d{8})$/
       prefix = pick_biased_country([32,61], country_bias)
       self.number = "#{prefix}4#{$1}"
