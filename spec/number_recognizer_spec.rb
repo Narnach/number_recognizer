@@ -277,4 +277,17 @@ describe NumberRecognizer do
       @nc.type.should == "Netherlands landline"
     end
   end
+
+  describe "custom format" do
+    it 'should use the custom country' do
+      NumberRecognizer.add_format :country => "Utopia", :mobile=>true, :format => /(99)(9\d{8})/, :country_code=>999
+      @nc = NumberRecognizer.new('0099912345678')
+      @nc.should be_valid
+      @nc.should be_mobile
+      @nc.country.should == '999'
+      @nc.prefix.should == '99'
+      @nc.local_number.should == '912345678'
+      @nc.country_name.should == 'Utopia'
+    end
+  end
 end

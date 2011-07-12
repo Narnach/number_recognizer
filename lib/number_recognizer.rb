@@ -4,7 +4,7 @@ class NumberRecognizer
   include FormatDsl
 
   # Input
-  attr_accessor :number, :old_number, :country_name, :country, :local_number
+  attr_accessor :number, :old_number, :country_name, :country, :local_number, :prefix
 
   add_format :country => "Netherlands", :mobile=>true, :format => /(31)(6\d{8})/
   add_format :country => "Belgium",     :mobile=>true, :format => /(32)(4\d{8})/
@@ -79,6 +79,14 @@ class NumberRecognizer
     "#{country_name} #{mobile? ? "mobile" : "landline"}"
   end
 
+  def country=(country)
+    @country = country.to_s
+  end
+
+  def prefix=(prefix)
+    @prefix = prefix.to_s
+  end
+
   private
 
   def parse
@@ -93,7 +101,8 @@ class NumberRecognizer
     self.country_name = format[:country]
 
     match = number.match(format[:format])
-    self.country = match[1]
+    self.prefix = match[1]
+    self.country = format[:country_code] || self.prefix
     self.local_number = match[2]
     @valid = true
     nil

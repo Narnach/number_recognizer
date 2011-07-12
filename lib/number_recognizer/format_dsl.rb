@@ -6,7 +6,7 @@ class NumberRecognizer
 
     module ClassMethods
       def add_format(options={})
-        formats << {:country=>options[:country], :mobile=>options[:mobile], :format=>options[:format]}
+        formats << {:country=>options[:country], :mobile=>options[:mobile], :format=>options[:format], :country_code=>options[:country_code]}
       end
 
       def formats
