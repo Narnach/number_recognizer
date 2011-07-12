@@ -280,14 +280,15 @@ describe NumberRecognizer do
 
   describe "custom format" do
     it 'should use the custom country' do
-      NumberRecognizer.add_format :country => "Utopia", :mobile=>true, :format => /(99)(9\d{8})/, :country_code=>999
+      NumberRecognizer.add_format :country => "Utopia", :mobile=>true, :format => /(999)(\d{8})/, :country_code=>99
       @nc = NumberRecognizer.new('0099912345678')
       @nc.should be_valid
       @nc.should be_mobile
-      @nc.country.should == '999'
-      @nc.prefix.should == '99'
-      @nc.local_number.should == '912345678'
+      @nc.country.should == '99'
+      @nc.prefix.should == '999'
+      @nc.local_number.should == '12345678'
       @nc.country_name.should == 'Utopia'
+      @nc.normalized_number.should == "99912345678"
     end
   end
 end

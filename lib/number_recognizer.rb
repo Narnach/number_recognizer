@@ -45,7 +45,7 @@ class NumberRecognizer
 
   def normalized_number
     parse unless @parsed
-    "#{country}#{local_number}"
+    "#{prefix}#{local_number}"
   end
 
   def correct(country_bias=nil)
