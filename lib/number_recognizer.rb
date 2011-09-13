@@ -8,10 +8,10 @@ class NumberRecognizer
 
   add_format :country => "Netherlands", :mobile=>true, :format => /(31)(6\d{8})/
   add_format :country => "Belgium",     :mobile=>true, :format => /(32)(4\d{8})/
-  add_format :country => "England",     :mobile=>true, :format => /(44)(7\d{8,9})/
-  add_format :country => "Australia",   :mobile=>true, :format => /(61)(4\d{8})/
+  add_format :country => "England",     :mobile=>true, :format => /(44)(7\d{8,9})/            # http://en.wikipedia.org/wiki/Telephone_numbers_in_England
+  add_format :country => "Australia",   :mobile=>true, :format => /(61)(4\d{8})/              # http://en.wikipedia.org/wiki/Telephone_numbers_in_Australia
   add_format :country => "Portugal",    :mobile=>true, :format => /(351)(9\d{8})/
-  add_format :country => "Spain",       :mobile=>true, :format => /(34)([67]\d{8})/
+  add_format :country => "Spain",       :mobile=>true, :format => /(34)((6\d|7[1-9])\d{7})/   # http://en.wikipedia.org/wiki/Telephone_numbers_in_Spain
 
   add_format :country => "Netherlands",     :mobile=>false, :format => /(31)([123457890]\d{8})/
   add_format :country => "Suriname",        :mobile=>false, :format => /(597)(\d{7,7})/
@@ -54,8 +54,14 @@ class NumberRecognizer
     case number
     when /^0?9([136]\d{7})$/ #this must come before NL !
       self.number = "3519#{$1}"
-    when /^0?7(\d{8,9})$/
+    when /^0?7([1-9]\d{7})$/ # 07 can't be followed by a 0 in spain. It's legal in England.
       prefix = pick_biased_country([44,34], country_bias)
+      self.number = "#{prefix}7#{$1}"
+    when /^0?7(0\d{7})$/ # 07 can't be followed by a 0 in spain. It's legal in England.
+      prefix = pick_biased_country([44], country_bias)
+      self.number = "#{prefix}7#{$1}"
+    when /^0?7(\d{9})$/ # Spanish numbers have 8 digits after the 07. English numbers can also have 9 digits after the 07.
+      prefix = pick_biased_country([44], country_bias)
       self.number = "#{prefix}7#{$1}"
     when /^0?6+(\d{8})$/
       prefix = pick_biased_country([31,34], country_bias)

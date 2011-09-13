@@ -63,6 +63,7 @@ describe NumberRecognizer do
       @nc.country.should == '44'
       @nc.local_number.should == '1234567890'
       @nc.country_name.should == 'England'
+      @nc.should_not be_mobile
     end
 
     it 'should recognize 0044123456789' do
@@ -71,6 +72,7 @@ describe NumberRecognizer do
       @nc.country.should == '44'
       @nc.local_number.should == '123456789'
       @nc.country_name.should == 'England'
+      @nc.should_not be_mobile
     end
 
     it 'should recognize 0044712345678' do
@@ -80,6 +82,17 @@ describe NumberRecognizer do
       @nc.country.should == '44'
       @nc.local_number.should == '712345678'
       @nc.country_name.should == 'England'
+      @nc.should be_mobile
+    end
+
+    it 'should recognize 00447123456789' do
+      @nc = NumberRecognizer.new('00447123456789')
+      @nc.should be_valid
+      @nc.should be_valid_or_correct_mobile
+      @nc.country.should == '44'
+      @nc.local_number.should == '7123456789'
+      @nc.country_name.should == 'England'
+      @nc.should be_mobile
     end
 
     it 'should recognize 0061451124205' do
@@ -105,6 +118,20 @@ describe NumberRecognizer do
       @nc.should be_mobile
       @nc.local_number.should == '612345678'
       @nc.country_name.should == 'Spain'
+    end
+
+    it 'should recognize 0034712345678' do
+      @nc = NumberRecognizer.new('0034712345678')
+      @nc.should be_valid
+      @nc.country.should == '34'
+      @nc.should be_mobile
+      @nc.local_number.should == '712345678'
+      @nc.country_name.should == 'Spain'
+    end
+
+    it 'should NOT recognize 0034702345678 as a Spanish number' do
+      @nc = NumberRecognizer.new('0034702345678')
+      @nc.should_not be_valid_or_correct_mobile(34)
     end
   end
 
