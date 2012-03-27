@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class NumberRecognizer
   module FormatDsl
     def self.included(base)

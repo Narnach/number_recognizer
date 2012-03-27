@@ -1,4 +1,5 @@
-require 'number_recognizer/format_dsl'
+# -*- encoding : utf-8 -*-
+require_relative "number_recognizer/format_dsl"
 
 class NumberRecognizer
   include FormatDsl
