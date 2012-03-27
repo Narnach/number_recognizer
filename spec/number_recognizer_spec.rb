@@ -130,6 +130,24 @@ describe NumberRecognizer do
       @nc.country_name.should == 'Spain'
     end
 
+    it 'should recognize 004912345678' do
+      @nc = NumberRecognizer.new('00491512345678')
+      @nc.should be_valid
+      @nc.country.should == '49'
+      @nc.should be_mobile
+      @nc.local_number.should == '1512345678'
+      @nc.country_name.should == 'Germany'
+    end
+
+    it 'should recognize 0049123456789' do
+      @nc = NumberRecognizer.new('004916123456789')
+      @nc.should be_valid
+      @nc.country.should == '49'
+      @nc.should be_mobile
+      @nc.local_number.should == '16123456789'
+      @nc.country_name.should == 'Germany'
+    end
+
     it 'should NOT recognize 0034702345678 as a Spanish number' do
       @nc = NumberRecognizer.new('0034702345678')
       @nc.should_not be_valid_or_correct_mobile(34)

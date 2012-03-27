@@ -9,12 +9,14 @@ class NumberRecognizer
 
   add_format :country => "Netherlands", :mobile=>true, :format => /(31)(6\d{8})/
   add_format :country => "Belgium",     :mobile=>true, :format => /(32)(4\d{8})/
+  add_format :country => "Germany",     :mobile=>true, :format => /(49)(1([567])\d{8,9})/     # http://en.wikipedia.org/wiki/Phone_numbers_in_Germany
   add_format :country => "England",     :mobile=>true, :format => /(44)(7\d{8,9})/            # http://en.wikipedia.org/wiki/Telephone_numbers_in_England
   add_format :country => "Australia",   :mobile=>true, :format => /(61)(4\d{8})/              # http://en.wikipedia.org/wiki/Telephone_numbers_in_Australia
   add_format :country => "Portugal",    :mobile=>true, :format => /(351)(9\d{8})/
   add_format :country => "Spain",       :mobile=>true, :format => /(34)((6\d|7[1-9])\d{7})/   # http://en.wikipedia.org/wiki/Telephone_numbers_in_Spain
 
   add_format :country => "Netherlands",     :mobile=>false, :format => /(31)([123457890]\d{8})/
+  add_format :country => "Germany",         :mobile=>false, :format => /(49)(\d([0123489])\d{8,9})/
   add_format :country => "Suriname",        :mobile=>false, :format => /(597)(\d{7,7})/
   add_format :country => "Dutch Antilles",  :mobile=>false, :format => /(599)(\d{7,7})/
   add_format :country => "England",         :mobile=>false, :format => /(44)([0-68-9]\d{8,9})/
