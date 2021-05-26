@@ -1,6 +1,9 @@
 NumberRecognizer
 ================
 
+> This project is archived. I created it in 2009 to scratch an itch, and since then stopped using it myself.
+> If it still helps you, enjoy!
+
 NumberRecognizer is library to recognize mobile phone numbers. It can make educated guesses to correct local numbers into numbers in international format.
 
 Examples
